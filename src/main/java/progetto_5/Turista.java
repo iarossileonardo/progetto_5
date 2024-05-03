@@ -3,7 +3,6 @@ package progetto_5;
 public class Turista extends Thread{
 
     private Museo m;
-    private long durata;
     private int nome;
 
     public Turista(Museo m, int nome){
@@ -14,17 +13,15 @@ public class Turista extends Thread{
     @Override
     public void run() {
         try {
-            long attesa = 2000 + (long)Math.random() * 1000;
-            System.out.println("Il turista-" + nome + " attende per " + (attesa / 1000) + "s");
-            this.sleep(attesa);
-            durata = m.guarda(this);
-            System.out.println("Il turista-" + nome + " guarda per " + (durata / 1000) + "s");
-            this.sleep(durata);
+            double attesa = 2000 + Math.random() * 1000;
+            System.out.println("Il turista-" + nome + " attende per " + ((int)attesa / 1000) + "s");
+            this.sleep((long)attesa);
+            double durata = m.guarda(this);
+            System.out.println("Il turista-" + nome + " guarda per " + ((int)durata / 1000) + "s");
+            this.sleep((long)durata);
             m.esci();
             System.out.println("Il turista-" + nome + " è uscito");
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
+        } catch (Exception e) {}
     }
 
     public int getNome() {

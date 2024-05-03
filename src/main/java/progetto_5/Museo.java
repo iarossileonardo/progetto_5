@@ -8,17 +8,21 @@ public class Museo {
         this.nome = nome;
     }
 
-    public synchronized long guarda(Turista t) throws Exception{
-        if(postiLiberi < 1){
-            System.out.println(t.getNome());
+    public synchronized double guarda(Turista t) throws Exception{
+        while(postiLiberi < 1){
+            //System.out.println("Il turista " + t.getNome() + " sta aspettando di entrare");
+            wait();
         }
 
         postiLiberi--;
 
-        return (long)Math.random() * 10000;
+        System.out.println("Posti liberi: " + postiLiberi);
+
+        return Math.random() * 4000 + 1000;
     }
 
     public synchronized void esci(){
         postiLiberi++;
+        notifyAll();
     }
 }
